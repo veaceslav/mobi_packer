@@ -51,11 +51,21 @@ public class MyParser {
         return items;
     }
 
+    /**
+     * Match a single item string representation
+     * @param token string representation of a single item
+     * @return true if representation is correct
+     */
     public static boolean matchToken(String  token){
         Pattern p = Pattern.compile("^\\([\\d]+,[\\d]+\\.[\\d]+,€[\\d]+\\)$");
         return p.matcher(token).matches();
     }
 
+    /**
+     * Match single line in input file
+     * @param line - line in the imput file
+     * @return true if line is matched
+     */
     public static boolean matchWholeLine(String  line){
         Pattern p = Pattern.compile("^[\\d]+\\ :( \\([\\d]+,[\\d]+\\.[\\d]+,€[\\d]+\\))*");
         return p.matcher(line).matches();

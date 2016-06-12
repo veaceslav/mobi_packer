@@ -2,6 +2,7 @@ package com.mobiquintyinc.utils;
 
 /**
  * Created by slavik on 6/12/16.
+ * Class which hold constants for the application
  */
 public class Constants {
 
