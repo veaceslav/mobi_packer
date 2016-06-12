@@ -3,12 +3,12 @@ package com.mobiquintyinc.pack;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.mobiquintyinc.exception.APIException;
 import com.mobiquintyinc.utils.Bag;
+import com.mobiquintyinc.utils.Constants;
 import com.mobiquintyinc.utils.Item;
 import com.mobiquintyinc.utils.MyParser;
 
@@ -19,6 +19,12 @@ import com.mobiquintyinc.utils.MyParser;
 
 public class Pack {
 
+    /**
+     * Static method which takes a filename and outputs the result of pack algorithm
+     * @param filePath
+     * @return
+     * @throws APIException
+     */
     public static String pack(String filePath) throws APIException {
 
         StringBuilder result = new StringBuilder();
@@ -37,6 +43,12 @@ public class Pack {
         return result.toString();
     }
 
+    /**
+     * Static method which parse one line from file and give the ooutput as string
+     * @param data - one line from data file
+     * @return item ids as string
+     * @throws APIException - line has improper format, max weight higher than 100
+     */
     public static String packInternals(String data) throws APIException {
 
         if(!MyParser.matchWholeLine(data)){
@@ -44,7 +56,7 @@ public class Pack {
         }
         String[] tokens = data.split(" ");
         int maxWeight = Integer.parseInt(tokens[0]);
-        if(maxWeight > 100){
+        if(maxWeight > Constants.MAX_OVERALL_WEIGHT){
             throw new APIException("Max Weight is bigger than 100: Actual value: " + maxWeight);
         }
         ArrayList<Item> items = MyParser.parseItems(Arrays.copyOfRange(tokens, 2, tokens.length));
@@ -55,7 +67,11 @@ public class Pack {
     }
 
 
-
+    /**
+     * Format the knapsack algorithm
+     * @param b -Bag containing items
+     * @return  - formatted string
+     */
     public static String outputFormat(Bag b){
 
         if(b.items.isEmpty()){
@@ -73,7 +89,10 @@ public class Pack {
         return strBuild.toString();
     }
 
-    // A utility function that returns maximum of two bags
+    /**
+     * A utility function that returns maximum of two bags
+     */
+
     static int max(int a, int b) { return (a > b)? a : b; }
 
     static Bag max(Bag a, Bag b){
@@ -84,6 +103,13 @@ public class Pack {
         }
     }
 
+    /**
+     * Algorithm implementation, will take the list of items and maxWeight and will output
+     * a bag with items
+     * @param items - array of items
+     * @param maxWeight - max weight
+     * @return - bag with items with maximum value
+     */
     public static Bag knapsackSolver(ArrayList<Item> items, int maxWeight){
 
                 int i, w;

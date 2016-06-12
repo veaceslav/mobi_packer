@@ -3,7 +3,6 @@ package com.mobiquintyinc.utils;
 import com.mobiquintyinc.exception.APIException;
 
 import java.util.ArrayList;
-import java.util.DoubleSummaryStatistics;
 import java.util.regex.Pattern;
 
 /**
@@ -11,7 +10,17 @@ import java.util.regex.Pattern;
  */
 public class MyParser {
 
+    /**
+     * Static method for parsing items from string
+     * @param tokens - string tokens in the specific format (id,weight,price)
+     * @return - Array of Items for the knapsack algorithm
+     * @throws APIException - throw exception if item weight or price over 100  and improper string format
+     */
     public static ArrayList<Item> parseItems(String[] tokens) throws APIException {
+
+        if(tokens.length > Constants.MAX_ITEMS) {
+            throw new APIException("Item limit exceeded, you should not have more than 100");
+        }
 
         ArrayList<Item> items = new ArrayList<>();
         for(int i = 0; i < tokens.length; i++){
@@ -28,11 +37,11 @@ public class MyParser {
             int id = Integer.parseInt(processed[0]);
             double weight = Double.parseDouble(processed[1]);
             int    price  = Integer.parseInt(processed[2]);
-            if(weight > 100){
+            if(weight > Constants.MAX_ITEM_WEIGHT){
                 throw new APIException("Item weight is bigger than 100");
             }
 
-            if(price > 100){
+            if(price > Constants.MAX_PRICE){
                 throw  new APIException("Item price is higher than 100");
             }
 
