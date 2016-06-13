@@ -1,0 +1,19 @@
+The application takes a filename as argument and displays the item in the bag.
+
+How to run:
+1. Open the project with Intellij IDEA(Community Edition)
+
+Dependencies:
+1. OpenJDK 8
+1. Junit 4 (taken form Maven)
+
+Application Design:
+1. Read the file line by line 
+2. Validate each line with a regex, throw exception if necessare (Pack.packInternals)
+3. Parse maxWeight and split in item substring.
+4. Each item substring is validated with another regex, and throw exception if it is not matched or constrains are not satisfier(utils.MyParser)
+5. Multiply weights by 100 to make them integers
+6. Run Knapsack algorithm (dynamic programming)
+7. Format the output and display the result
+
+
